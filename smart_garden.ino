@@ -14,25 +14,35 @@ void loop() {
   // put your main code here, to run repeatedly:
   int soilMoisture = analogRead(A0);
   int photoResistor = analogRead(A2);
-  Serial.print("Soil Moisture:");
-  Serial.println(soilMoisture);
-  Serial.print("Light Intensity: ");
-  Serial.println(photoResistor);
-  if(soilMoisture > 430){
-    digitalWrite(redLight, HIGH);
-    digitalWrite(greenLight, LOW);
-    digitalWrite(pumpRelay, LOW);
+  // Serial.print("Soil Moisture:");
+  Serial.print(soilMoisture);
+  Serial.print(",");
+  Serial.print(photoResistor);
+  Serial.print(",");
+  if (digitalRead(pumpRelay == HIGH)){
+    Serial.println("OFF");
   }
-  else if(soilMoisture < 100){    
+  else {
+    Serial.println("ON");
+  }
+
+  // Pump relay triggers have been inverted
+  // due to the hardware wiring of the relay
+  if(soilMoisture > 430){
     digitalWrite(redLight, HIGH);
     digitalWrite(greenLight, LOW);
     digitalWrite(pumpRelay, HIGH);
   }
+  else if(soilMoisture < 100){    
+    digitalWrite(redLight, HIGH);
+    digitalWrite(greenLight, LOW);
+    digitalWrite(pumpRelay, LOW);
+  }
   else{
     digitalWrite(greenLight, HIGH);
     digitalWrite(redLight, LOW);
-    digitalWrite(pumpRelay, LOW);
+    digitalWrite(pumpRelay, HIGH);
   }
-  delay(1000);
+  delay(10000);
   
 }
