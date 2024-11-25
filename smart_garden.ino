@@ -40,6 +40,5 @@ void loop() {
     digitalWrite(pumpRelay, HIGH);
     Serial.println("OFF");
   }
-  delay(10000);
-  
+  delay(10000); 
 }
