@@ -3,9 +3,10 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import time as t
 from datetime import datetime, timezone 
+from zoneinfo import ZoneInfo
 import csv
 
-
+tz = ZoneInfo('America/Halifax')
 arduino = serial.Serial(port='/dev/ttyACM0', baudrate=9600, timeout=.1) 
 
 # Reset the Arduino
@@ -19,6 +20,8 @@ x = []
 timeStamp = []
 soilMoisture = []
 lightIntensity = []
+temperature = []
+humidity = []
 pumpRelay = []
 
 def read_data():
@@ -29,20 +32,22 @@ def read_data():
 	# print((data))
 	if data != None:
 		sensorValues = data.split(',')
-		# print(sensorValues)	
+		# Values are printed in the order soil, light, temp, humidity, pump
 		if len(sensorValues) > 1:
-			timeStamp.append(datetime.now(timezone.utc))
+			timeStamp.append(datetime.now(tz))
 			# print((sensorValues))
-			print(datetime.now(timezone.utc), sensorValues[0], sensorValues[1], sensorValues[2])
+			print(datetime.now(timezone.utc), sensorValues[0], sensorValues[1], sensorValues[2], sensorValues[3], sensorValues[4])
 			soilMoisture.append(int(sensorValues[0]))
 			lightIntensity.append(int(sensorValues[1]))
-			pumpRelay.append(sensorValues[2])
-start_time = datetime.now(timezone.utc)
+			temperature.append(float(sensorValues[2]))
+			humidity.append(float(sensorValues[3]))
+			pumpRelay.append(sensorValues[4])
+start_time = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 while True:
 	read_data()
-	with open(f'arduino_data_{start_time}.csv', 'w', newline='') as csvfile:
+	with open(f'data/data_{start_time}.csv', 'w', newline='') as csvfile:
 		writer = csv.writer(csvfile)
-		writer.writerow(['Time', 'Soil_Moisture', 'Light_Intensity', 'Pump Signal'])
-		for time, moisture, light, pump in zip(timeStamp, soilMoisture, lightIntensity, pumpRelay):
-			writer.writerow([time, moisture, light, pump])
+		writer.writerow(['Time', 'Soil_Moisture', 'Light_Intensity', 'Temperature', 'Humidity', 'Pump Signal'])
+		for time, moisture, light, temp, hum, pump in zip(timeStamp, soilMoisture, lightIntensity, temperature, humidity, pumpRelay):
+			writer.writerow([time, moisture, light, temp, hum, pump])
 	t.sleep(30)	
