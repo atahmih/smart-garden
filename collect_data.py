@@ -36,7 +36,7 @@ def read_data():
 		if len(sensorValues) > 1:
 			timeStamp.append(datetime.now(tz))
 			# print((sensorValues))
-			print(datetime.now(timezone.utc), sensorValues[0], sensorValues[1], sensorValues[2], sensorValues[3], sensorValues[4])
+			print(datetime.now(tz), sensorValues[0], sensorValues[1], sensorValues[2], sensorValues[3], sensorValues[4])
 			soilMoisture.append(int(sensorValues[0]))
 			lightIntensity.append(int(sensorValues[1]))
 			temperature.append(float(sensorValues[2]))

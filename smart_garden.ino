@@ -46,7 +46,7 @@ void loop() {
   Serial.print(",");
   // Pump relay triggers have been inverted
   // due to the hardware wiring of the relay
-  if(soilMoisture > 400){
+  if(soilMoisture > 420){
     digitalWrite(redLight, HIGH);
     digitalWrite(greenLight, LOW);
     digitalWrite(pumpRelay, HIGH); //OFF

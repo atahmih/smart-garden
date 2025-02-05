@@ -1,0 +1,4 @@
+fastapi
+uvicorn
+azure-iot-device
+azure-iot-hub
