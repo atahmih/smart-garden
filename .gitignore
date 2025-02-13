@@ -3,3 +3,8 @@ smart_garden_copy.ino
 collect_data_copy.py
 device_connection_str.txt
 backend_connection_str.txt
+.env
+.vercel
+.vscode
+app.js
+__pycache__

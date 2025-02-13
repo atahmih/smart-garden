@@ -1,20 +1,21 @@
 {
-  "name": "smart-garden-dashboard",
+  "name": "dashboard",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "chart.js": "^4.4.7",
     "cra-template": "1.2.0",
     "react": "^19.0.0",
-    "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.0.0",
-    "react-scripts": "^3.0.1"
+    "react-scripts": "^3.0.1",
+    "recharts": "^2.15.1",
+    "web-vitals": "^4.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "set-node-options": "export NODE_OPTIONS=--openssl-legacy-provider"
   },
   "eslintConfig": {
     "extends": [

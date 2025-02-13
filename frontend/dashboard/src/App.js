@@ -1,13 +1,14 @@
-// Modify site here before moving to main code
-
 import React, { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 function App() {
   const [sensorData, setSensorData] = useState(null);
   const [historicalData, setHistoricalData] = useState([]);
+  const [xMin, setXMin] = useState(null);
+  const [xMax, setXMax] = useState(null);
 
   useEffect(() => {
+    document.title = 'Smart Garden'
     const fetchData = async () => {
       try {
         // Fetch latest sensor data
@@ -23,11 +24,23 @@ function App() {
         
         // Ensure timestamps are formatted properly 
         const formattedData = historyData.map(item => ({
-          time: new Date(item.timestamp).toLocaleTimeString(), 
-          temperature: item.soil_moisture
+          time: new Date(item.timestamp).toLocaleTimeString([], { 
+            hour: '2-digit', 
+            minute: '2-digit',
+            hour12: true 
+          }),
+          soil_moisture: item.soil_moisture
         }));
         
         setHistoricalData(formattedData);
+        if (formattedData.length > 0) {
+          const minTime = Math.min(...formattedData.map(d => d.time));
+          const maxTime = Math.max(...formattedData.map(d => d.time));
+          const oneHour = 60 * 60 * 1000; // 60 minutes in milliseconds
+          
+          setXMin(minTime - oneHour / 2); // 30 minutes before first data point
+          setXMax(maxTime + oneHour / 2); // 30 minutes after last data point
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -35,6 +48,7 @@ function App() {
 
     fetchData();
     const interval = setInterval(fetchData, 10000);
+    
     return () => clearInterval(interval);
   }, []);
 
@@ -59,13 +73,31 @@ function App() {
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={historicalData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="time" />
-            <YAxis label={{ value: "", angle: -90, position: "insideLeft" }} />
+            <XAxis 
+              dataKey="time" 
+              interval="preserveStartEnd"
+              tick={{ fontSize: 12 }}
+              height={50}
+              angle={-45}
+              textAnchor="end"
+              domain={[xMin, xMax]} 
+            />
+            <YAxis 
+                domain={["dataMin - 10", "dataMax + 10"]}
+                allowDataOverflow={false}
+                tick={{ fontSize: 12 }}
+              />
             <Tooltip />
-            <Line type="monotone" dataKey="temperature" stroke="#8884d8" strokeWidth={2} />
+            <Line type="monotone" dataKey="soil_moisture" stroke="#8884d8" strokeWidth={2} />
           </LineChart>
         </ResponsiveContainer>
       </div>
+
+      <footer style={{ marginTop: "20px", fontSize: "14px", color: "#666" }}>
+      <a href="https://www.flaticon.com/free-icons/gardening" title="gardening icons" target="_blank" rel="noopener noreferrer">
+        Tab Icon
+      </a>
+    </footer>
     </div>
   );
 }
