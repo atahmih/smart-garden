@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+azure-iot-device
+azure-iot-hub
+azure-cosmos
+gunicorn
