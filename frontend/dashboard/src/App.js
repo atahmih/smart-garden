@@ -30,7 +30,7 @@ function App() {
             hour12: true 
           }),
           soil_moisture: item.soil_moisture
-        }));
+        })).reverse();
         
         setHistoricalData(formattedData);
         if (formattedData.length > 0) {

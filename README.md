@@ -1,7 +1,15 @@
-# smart-garden
+# Smart Garden Dashboard
 
-In this project, we collect sensor data (soil moisture and light intensity) from an plant pot using Arduino. 
+This is a **React-based** web application that monitors and visualizes **smart garden** sensor data in real time. The dashboard displays **soil moisture, temperature, humidity, light intensity, and pump status**, along with a historical trend chart.
 
-The data is streamed to a Raspberry Pi device that collects and stores the data locally. The Raspi also connects to Azure for cloud storage. 
+## Features
+- **Live Data**: Fetches real-time sensor readings from an Azure IoT backend.
+- **Historical Data**: Displays past sensor readings using interactive charts.
+- **Deployed on Vercel**: Accessible from anywhere with an internet connection.
+- **Responsive UI**: Works on desktops, tablets, and mobile devices.
 
-The project is ongoing and will be updated periodically. 
+## Tech Stack
+- **Frontend**: React, Recharts (for graphs), CSS
+- **Backend**: Azure IoT Hub, FastAPI
+- **Database**: Cosmos DB
+- **Hosting**: Vercel

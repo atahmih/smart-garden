@@ -64,7 +64,7 @@ def get_latest_data():
         raise HTTPException(status_code=500, detail=str(e))
     
 @app.get('/history')
-def get_sensor_history(limit: int = 10):
+def get_sensor_history(limit: int = 20):
     # Fetch the last limit sensor readings
     try:
         query = f'SELECT * FROM c ORDER BY c.timestamp DESC OFFSET 0 LIMIT {limit}' 
