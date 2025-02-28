@@ -14,4 +14,8 @@ This is a **React-based** web application that monitors and visualizes **smart g
 - **Database**: Cosmos DB
 - **Hosting**: Vercel
 
-## Deployed at: https://smart-garden-green.vercel.app/
+## Dashboard 
+https://smart-garden-green.vercel.app/
+
+## Blogposts
+https://www.linkedin.com/in/atahmih/recent-activity/articles/
