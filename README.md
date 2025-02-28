@@ -13,3 +13,5 @@ This is a **React-based** web application that monitors and visualizes **smart g
 - **Backend**: Azure IoT Hub, FastAPI
 - **Database**: Cosmos DB
 - **Hosting**: Vercel
+
+## Deployed at: https://smart-garden-green.vercel.app/
